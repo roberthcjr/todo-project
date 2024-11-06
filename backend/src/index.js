@@ -36,7 +36,19 @@ app.post('/tasks', async (req, res, next) => {
 }
 );
 
-app.use((err, req, res) => {
+app.delete('/tasks', async (req, res, next) => {
+    let todoService;
+    try {
+        todoService = new TodoService();
+        await todoService.init();
+        await todoService.delete(req.body.id);
+        res.status(200).send();
+    } catch (error) {
+        next(error);
+    } finally {
+        if(todoService) await todoService.close();
+    }
+});
     res.status(err.status).send(err.message);
     }
 );

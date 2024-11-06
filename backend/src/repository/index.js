@@ -19,11 +19,11 @@ export default class TodoRepository {
         await collection.insertOne(todo);
     }
 
-    async delete(todo){
+    async delete(id){
         await this.client.connect();
         const db = this.client.db('local');
         const collection = db.collection('todo-list');
-        await collection.deleteOne(todo);
+        await collection.deleteOne({ id });
     }
 
     async update(todo){

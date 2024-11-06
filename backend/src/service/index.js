@@ -23,8 +23,8 @@ export default class TodoService {
         await this.todoRepository.add(todo);
     }
 
-    async delete(todo){
-        await this.todoRepository.delete(todo);
+    async delete(id){
+        await this.todoRepository.delete(id);
     }
 
     async update(todo){
