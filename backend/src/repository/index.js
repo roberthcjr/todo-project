@@ -1,8 +1,9 @@
-import {startConnection, closeConnection} from '../database/index.js';
+import { createClient } from '../database/index.js';
 
 export default class TodoRepository {
     async init(){
-        this.client = await startConnection();
+        this.clientMiddleware = createClient();
+        this.client = await this.clientMiddleware.startConnection();
     }
     
     async findAll(){
@@ -35,6 +36,6 @@ export default class TodoRepository {
     }
 
     async close(){
-        closeConnection(this.client);
+        this.clientMiddleware.closeConnection(this.client);
     }
 }
