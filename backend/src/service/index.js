@@ -28,7 +28,8 @@ export default class TodoService {
     }
 
     async update(todo){
-        await this.todoRepository.update(todo);
+        const queryResponse = await this.todoRepository.update(todo);
+        if(queryResponse.modifiedCount === 0) throw responseHandler(304, "No data was modified");
     }
 
     async close(){

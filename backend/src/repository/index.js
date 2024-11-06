@@ -27,10 +27,11 @@ export default class TodoRepository {
     }
 
     async update(todo){
+        const { id } = todo;
         await this.client.connect();
         const db = this.client.db('local');
         const collection = db.collection('todo-list');
-        await collection.updateOne(todo);
+        return await collection.updateOne({ id }, {$set: todo});
     }
 
     async close(){
