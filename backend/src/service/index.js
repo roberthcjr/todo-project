@@ -1,5 +1,7 @@
 import { responseHandler } from '../utils/responseHandler.js';
+import { v4 as uuid } from 'uuid';
 import TodoRepository from '../repository/index.js';
+
 
 export default class TodoService {
     async init(){
@@ -15,11 +17,11 @@ export default class TodoService {
 
     async add(task){
         const todo = {
+            id: uuid(),
             task,
             created_at: new Date(),
             status: 'pending'
         };
-        console.log(todo);
         await this.todoRepository.add(todo);
     }
 
