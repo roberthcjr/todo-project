@@ -1,12 +1,12 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import TodoService from './service/index.js';
+import express from "express";
+import bodyParser from "body-parser";
+import TodoService from "./service/index.js";
 
 const app = express();
 
 app.use(bodyParser.json());
 
-app.get('/tasks', async (req, res, next) => {
+app.get("/tasks", async (req, res, next) => {
     let todoService;
     try {
         todoService = new TodoService();
@@ -16,12 +16,11 @@ app.get('/tasks', async (req, res, next) => {
     } catch (error) {
         next(error);
     } finally {
-        if(todoService) await todoService.close();
+        if (todoService) await todoService.close();
     }
-}
-);
+});
 
-app.post('/tasks', async (req, res, next) => {
+app.post("/tasks", async (req, res, next) => {
     let todoService;
     try {
         todoService = new TodoService();
@@ -31,12 +30,11 @@ app.post('/tasks', async (req, res, next) => {
     } catch (error) {
         next(error);
     } finally {
-        if(todoService) await todoService.close();
+        if (todoService) await todoService.close();
     }
-}
-);
+});
 
-app.delete('/tasks', async (req, res, next) => {
+app.delete("/tasks", async (req, res, next) => {
     let todoService;
     try {
         todoService = new TodoService();
@@ -46,11 +44,11 @@ app.delete('/tasks', async (req, res, next) => {
     } catch (error) {
         next(error);
     } finally {
-        if(todoService) await todoService.close();
+        if (todoService) await todoService.close();
     }
 });
 
-app.put('/tasks', async (req, res, next) => {
+app.put("/tasks", async (req, res, next) => {
     let todoService;
     try {
         todoService = new TodoService();
@@ -61,15 +59,14 @@ app.put('/tasks', async (req, res, next) => {
         console.log(error);
         next(error);
     } finally {
-        if(todoService) await todoService.close();
+        if (todoService) await todoService.close();
     }
-})
+});
 
 app.use((err, req, res, next) => {
     res.status(err.status).send(err.message);
-    }
-);
+});
 
 app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-    });
+    console.log("Server is running on port 3000");
+});
